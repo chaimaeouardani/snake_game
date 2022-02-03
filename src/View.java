@@ -7,13 +7,15 @@ public class View {
 	
 	private JFrame window;
 	private GamePanel game;
+	final static int ScreenX = 700;
+	final static int ScreenY = 700;
 	
 	public View() {
 		window = new JFrame();
 		window.setTitle("Snake Game");
 		
-		JLabel title = new JLabel("Snake game !");
-		window.add(title);
+		//JLabel title = new JLabel("Snake game !");
+		//window.add(title);
 		
 		
 		game = new GamePanel();
@@ -26,7 +28,7 @@ public class View {
 		window.setVisible(true);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.setSize(new Dimension(800, 800));
+		window.setSize(new Dimension(ScreenX, ScreenY));
 		window.setLocationRelativeTo(null);
 	}
 	
