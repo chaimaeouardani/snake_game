@@ -15,14 +15,13 @@ public class Snake {
 	
 	public Snake(int x, int y, int nb) {
 		this.currDirection = Direction.Right;
-		this.positionsX = new int[] {x};
-		this.positionsY = new int[] {y};
+		this.positionsX = new int[500];
+		this.positionsY = new int[500];
 		this.body = nb;
-		for (int i=1; i<nb; i++) {
-			this.positionsX[i] = this.positionsX[i-1] - 1;
+		for (int i=0; i<nb; i++) {
+			this.positionsX[i] = x - i;
 			this.positionsY[i] = y;
 		}
-		
 	}
 
 	// adding new part for the body
@@ -48,29 +47,24 @@ public class Snake {
 	
 	//Moving the snake
 	public void Move(Direction d) {
-			for (int i=this.body-1; i==0; i--) {
-				if (i==0) {
-					switch (d) {
-						case Up:
-							this.positionsY[i]--;
-							break;
-						case Down:
-							this.positionsY[i]++;
-							break;
-						case Right:
-							this.positionsX[i]++;
-							break;
-						case Left:
-							this.positionsX[i]--;
-							break;
-					}
-				}
-				else {
-					this.positionsY[i] = this.positionsY[i+1];
-					this.positionsX[i] = this.positionsX[i+1];
-
-				}
+			for (int i=this.body; i>0; i--) {
+				this.positionsY[i] = this.positionsY[i-1];
+				this.positionsX[i] = this.positionsX[i-1];
 			}
+			switch (d) {
+				case Up:
+					this.positionsY[0]--;
+					break;
+				case Down:
+					this.positionsY[0]++;
+					break;
+				case Right:
+					this.positionsX[0]++;
+					break;
+				case Left:
+					this.positionsX[0]--;
+					break;
+				}
 	}
 	
 	//check collisions with wall and body parts
@@ -84,6 +78,7 @@ public class Snake {
 		}else {
 			for (int i=1; i<this.body; i++) {
 				if ( positionsX[i] == positionsX[0] && positionsY[i] == positionsY[0]) {
+					System.out.println("body");
 					return true;
 				}
 			}
@@ -92,6 +87,10 @@ public class Snake {
 	}
 						
 	//getters and setters
+	
+	public int getBodysize() {
+		return this.body;
+	}
 	public void setDirection(Direction nd) {
 		this.currDirection = nd;
 	}
@@ -100,7 +99,7 @@ public class Snake {
 		return this.currDirection;
 	}
 	
-	public int[] getPositionX() {
+	public int[] getPositionsX() {
 		return positionsX;
 	}
 
