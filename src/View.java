@@ -65,9 +65,8 @@ public class View extends JPanel implements ActionListener{
 		
 		//draw apple
 
-		//Image image = Toolkit.getDefaultToolkit().getImage("apple.png");
 		try {
-			BufferedImage img = ImageIO.read(new File("/home/n7student/git/snake_game/src/apple.png"));
+			BufferedImage img = ImageIO.read(new File("src/apple.png"));
 			Image imgScaled = img.getScaledInstance(snake_unit, snake_unit, Image.SCALE_DEFAULT);
 			g2d.drawImage(imgScaled,this.apple.getX()*snake_unit, this.apple.getY()*snake_unit,this);
 
@@ -75,7 +74,6 @@ public class View extends JPanel implements ActionListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//g2d.drawImage(image,this.apple.getX()*snake_unit, this.apple.getY()*snake_unit,this.apple.getX()*snake_unit + snake_unit, this.apple.getY()*snake_unit+snake_unit, this);
 
 		//g2d.setColor(Color.red);
 		//g2d.fillOval(this.apple.getX()*snake_unit, this.apple.getY()*snake_unit, snake_unit, snake_unit);
