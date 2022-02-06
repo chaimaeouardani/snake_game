@@ -4,7 +4,7 @@
 enum Direction {Left, Up, Down, Right};
 
 public class Snake {
-
+	
 	private Direction currDirection;
 	
 	private int[] positionsX;
@@ -46,12 +46,12 @@ public class Snake {
 	}
 	
 	//Moving the snake
-	public void Move(Direction d) {
+	public void Move() {
 			for (int i=this.body; i>0; i--) {
 				this.positionsY[i] = this.positionsY[i-1];
 				this.positionsX[i] = this.positionsX[i-1];
 			}
-			switch (d) {
+			switch (this.currDirection) {
 				case Up:
 					this.positionsY[0]--;
 					break;
@@ -70,12 +70,12 @@ public class Snake {
 	//check collisions with wall and body parts
 	public boolean isGameOver(int maxX, int maxY) {
 		
-		boolean colliededW = this.positionsX[0] < 0 || this.positionsX[0] > maxX
-				|| this.positionsY[0] < 0 || this.positionsY[0] > maxY ;
-		
-		if (colliededW) {
+		//Wall collision
+		if ( this.positionsX[0] == 0 || (this.positionsX[0] > maxX)
+				|| this.positionsY[0] < 0 || this.positionsY[0] > maxY) {
 			return true;
 		}else {
+			//body collision
 			for (int i=1; i<this.body; i++) {
 				if ( positionsX[i] == positionsX[0] && positionsY[i] == positionsY[0]) {
 					System.out.println("body");

@@ -2,38 +2,44 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.event.ActionEvent; 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyAdapter;
+
 import java.awt.*;
 
 public class View extends JPanel implements ActionListener{
 	
-	final static int game_size = 500;
 	final static int snake_unit = 20;
-	final static int nb_unit = game_size / snake_unit;
-	final static Border blackline = BorderFactory.createLineBorder(Color.gray);
+	final static int nb_unit = 30;
+	final static int game_size = (nb_unit*snake_unit) ^ 2;
+	static int update_time = 200;
+	//final static Border blackline = BorderFactory.createLineBorder(Color.gray);
 
-	private Timer t =  new Timer(100, this);
+	private Timer t =  new Timer(update_time, this);
 	private Snake snake;
 	private boolean gameover = false;
 	private Apple apple;
 	
 	public View() {
 		super();
-		//super.setBackground(Color.black);
 		snake = new Snake(nb_unit / 2, nb_unit/2, 5);
-		apple = new Apple(nb_unit);
+		apple = new Apple(nb_unit-1);
+		
+		//this.addKeyListener(new MyKeyAdapter(this.snake));
+		
 		//timer for updating the graphics
 		t.start();
 	}
 	
 	public void Play() {
-		//check if snake can eat apple
+		//check if snake can eat an apple
 		if (this.snake.getPositionsX()[0] == this.apple.getX() && 
 				this.snake.getPositionsY()[0] == this.apple.getY()) {
 			this.snake.EatApple();
 			this.apple.NewPosition();
 		}
-		this.snake.Move(this.snake.getDirection());
-		this.gameover = this.snake.isGameOver(nb_unit, game_size);
+		this.snake.Move();
+		this.gameover = this.snake.isGameOver(nb_unit-1, nb_unit-1);
 		
 	}
 	
@@ -43,7 +49,7 @@ public class View extends JPanel implements ActionListener{
 		
 		//background
 		g.setColor(Color.black);
-		g.fillRect(20,30,game_size, game_size);
+		g.fillRect(0,0,game_size, game_size);
 		
 		//draw the snake
 		int s = snake.getBodysize();
