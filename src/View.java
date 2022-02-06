@@ -57,12 +57,12 @@ public class View extends JPanel implements ActionListener{
 			int y = snake.getPositionsY()[i];
 			g2d.fillRect(x*snake_unit,y*snake_unit, snake_unit, snake_unit);
 			if (i==0) {
+				//change the color for the head
 				g2d.setColor(new Color( 137, 238, 119 ));
 			}else {
-				g2d.setColor(Color.green);
+				g2d.setColor(new Color( 47, 113, 35));
 			}
 		}
-		
 		//draw apple
 
 		try {
@@ -71,13 +71,10 @@ public class View extends JPanel implements ActionListener{
 			g2d.drawImage(imgScaled,this.apple.getX()*snake_unit, this.apple.getY()*snake_unit,this);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			g2d.setColor(Color.red);
+			g2d.fillOval(this.apple.getX()*snake_unit, this.apple.getY()*snake_unit, snake_unit, snake_unit);
 		}
 
-		//g2d.setColor(Color.red);
-		//g2d.fillOval(this.apple.getX()*snake_unit, this.apple.getY()*snake_unit, snake_unit, snake_unit);
-		
 	}
 	public Snake getSnake() {
 		return this.snake;
@@ -100,17 +97,19 @@ public class View extends JPanel implements ActionListener{
 	
 	public void showGO() {
 		JFrame f = new JFrame();
-		f.setLayout(new GridLayout(2,1) );
+		f.setLayout(new GridLayout(3,1) );
 		f.setTitle("Game Over");
 		JLabel score = new JLabel("   Game Over ! Your score is " + this.snake.getScore());
+		JLabel record = new JLabel("   Your best record so far is " + Snake.bestRecord);
 		JButton replay = new JButton("Replay");
 		JButton quit = new JButton("Quit");
 		JPanel but = new JPanel(new GridBagLayout());
 		but.add(replay);
 		but.add(quit);
 		f.add(score);
+		f.add(record);
 		f.add(but);
-		f.setSize(new Dimension(400, 200));
+		f.setSize(new Dimension(400, 180));
 		f.setLocation(2*(Main.pos + 50), 3*Main.pos);
 		f.toFront();
 		f.setVisible(true);

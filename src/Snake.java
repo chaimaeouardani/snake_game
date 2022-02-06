@@ -4,7 +4,7 @@
 enum Direction {Left, Up, Down, Right};
 
 public class Snake {
-	
+	static int bestRecord;
 	private Direction currDirection;
 	private int score = 0;
 	private int[] positionsX;
@@ -74,12 +74,20 @@ public class Snake {
 		//Wall collision
 		if ( this.positionsX[0] < 0 || (this.positionsX[0] > maxX)
 				|| this.positionsY[0] < 0 || this.positionsY[0] > maxY) {
+			//update record
+			if (this.score > bestRecord) {
+				bestRecord = this.score;
+			}
 			return true;
 		}else {
+			
 			//body collision
 			for (int i=1; i<this.body; i++) {
 				if ( positionsX[i] == positionsX[0] && positionsY[i] == positionsY[0]) {
 					System.out.println("body");
+					if (this.score > bestRecord) {
+						bestRecord = this.score;
+					}
 					return true;
 				}
 			}
