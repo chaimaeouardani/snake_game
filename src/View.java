@@ -1,11 +1,16 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent; 
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.*;
+
 
 public class View extends JPanel implements ActionListener{
 	
-	final static int nb_unit = 40;
+	final static int nb_unit = 35;
 	final static int game_size = 600;
 	final static int snake_unit = game_size / nb_unit;
 
@@ -39,26 +44,41 @@ public class View extends JPanel implements ActionListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+		Graphics2D g2d = (Graphics2D) g;
+		
 		//background
-		g.setColor(Color.black);
-		g.fillRect(0,0,game_size, game_size);
+		g2d.setColor(Color.black);
+		g2d.fillRect(0,0,game_size, game_size);
 		
 		//draw the snake
 		int s = snake.getBodysize();
 		for (int i=0; i<s; i++) {
 			int x = snake.getPositionsX()[i];
 			int y = snake.getPositionsY()[i];
-			g.fillRect(x*snake_unit,y*snake_unit, snake_unit, snake_unit);
+			g2d.fillRect(x*snake_unit,y*snake_unit, snake_unit, snake_unit);
 			if (i==0) {
-				g.setColor(new Color( 137, 238, 119 ));
+				g2d.setColor(new Color( 137, 238, 119 ));
 			}else {
-			g.setColor(Color.green);
+				g2d.setColor(Color.green);
 			}
 		}
 		
 		//draw apple
-		g.setColor(Color.red);
-		g.fillOval(this.apple.getX()*snake_unit, this.apple.getY()*snake_unit, snake_unit, snake_unit);
+
+		//Image image = Toolkit.getDefaultToolkit().getImage("apple.png");
+		try {
+			BufferedImage img = ImageIO.read(new File("/home/n7student/git/snake_game/src/apple.png"));
+			Image imgScaled = img.getScaledInstance(snake_unit, snake_unit, Image.SCALE_DEFAULT);
+			g2d.drawImage(imgScaled,this.apple.getX()*snake_unit, this.apple.getY()*snake_unit,this);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//g2d.drawImage(image,this.apple.getX()*snake_unit, this.apple.getY()*snake_unit,this.apple.getX()*snake_unit + snake_unit, this.apple.getY()*snake_unit+snake_unit, this);
+
+		//g2d.setColor(Color.red);
+		//g2d.fillOval(this.apple.getX()*snake_unit, this.apple.getY()*snake_unit, snake_unit, snake_unit);
 		
 	}
 	public Snake getSnake() {
