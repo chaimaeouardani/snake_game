@@ -6,7 +6,7 @@ enum Direction {Left, Up, Down, Right};
 public class Snake {
 	
 	private Direction currDirection;
-	
+	private int score = 0;
 	private int[] positionsX;
 	private int[] positionsY;
 	
@@ -43,6 +43,7 @@ public class Snake {
 			this.positionsY[body] = this.positionsY[body-1] ;
 		}
 		this.body++;
+		this.score++;
 	}
 	
 	//Moving the snake
@@ -71,7 +72,7 @@ public class Snake {
 	public boolean isGameOver(int maxX, int maxY) {
 		
 		//Wall collision
-		if ( this.positionsX[0] == 0 || (this.positionsX[0] > maxX)
+		if ( this.positionsX[0] < 0 || (this.positionsX[0] > maxX)
 				|| this.positionsY[0] < 0 || this.positionsY[0] > maxY) {
 			return true;
 		}else {
@@ -105,6 +106,10 @@ public class Snake {
 
 	public void setPositionsX(int[] npx) {
 		this.positionsX = npx;
+	}
+	
+	public int getScore() {
+		return this.score;
 	}
 
 	public int[] getPositionsY() {
